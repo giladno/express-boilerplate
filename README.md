@@ -55,3 +55,8 @@ To get the Node server running locally:
 - Password reset
 - Adding Webpack to demonstrate bundle serving to the client
 - Improve the project file structure, maybe separate to `config`, `models` etc.
+
+## Contributors
+
+![Gilad Novik](https://avatars1.githubusercontent.com/u/417148?s=50&v=4)
+![Tal Koren](https://avatars1.githubusercontent.com/u/4380333?s=50&v=4)
