@@ -58,5 +58,5 @@ To get the Node server running locally:
 
 ## Contributors
 
-![Gilad Novik](https://avatars1.githubusercontent.com/u/417148?s=50&v=4)
-![Tal Koren](https://avatars1.githubusercontent.com/u/4380333?s=50&v=4)
+[<img title="Gilad Novik" src="https://avatars1.githubusercontent.com/u/417148?s=50&v=4">](https://github.com/giladno)
+[<img title="Tal Koren" src="https://avatars1.githubusercontent.com/u/4380333?s=50&v=4">](https://github.com/Ardethian)
