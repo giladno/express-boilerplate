@@ -45,7 +45,7 @@ To get the Node server running locally:
 
 - `db.js` - We use this file to connect to our database using Sequelize, set up our models, hooks, and authentication mechanism
 
-- `controllers` - This folder contains the controllers used in our routes. These contain the logic of what happend when a user requests a certain page or endpoint.
+- `controllers/` - This folder contains the controllers used in our routes. These contain the logic of what happens when a user requests a certain page or endpoint.
 
 - `views/` - This folder contains the `.ejs` files that get served from our controllers
 
