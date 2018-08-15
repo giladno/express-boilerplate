@@ -21,7 +21,7 @@ app.locals.__DEV__ = __DEV__;
 app.use(
     require('cookie-session')({
         keys: [process.env.COOKIE_SECRET || 'secret'],
-        maxAge: +process.env.COOKIE_AGE || 30 * 86400000,
+        maxAge: Number(process.env.COOKIE_AGE) || 30 * 86400000,
     })
 );
 app.use(express.static(path.resolve(__dirname, './static')));
@@ -44,8 +44,9 @@ if (__DEV__) {
 
 app.use(async (req, res, next) => {
     try {
-        let user = req.session.id && (await User.findOne({where: {id: +req.session.id || 0}}));
-        if (user && (+req.session.timestamp || 0) > (+user.logout || 0)) res.locals.user = req.user = user;
+        let user = req.session.id && (await User.findOne({where: {id: req.session.id || 0}}));
+        if (user && (Number(req.session.timestamp) || 0) > (Number(user.logout) || 0))
+            res.locals.user = req.user = user;
     } catch (err) {
         winston.error(err.message, {err});
     } finally {
@@ -73,10 +74,9 @@ app.use((err, req, res, next) => {
     next;
 });
 
-
 process.on('unhandledRejection', err => {
-  winston.error(err.message, {err}); 
-  throw err; 
+    winston.error(err.message, {err});
+    throw err;
 });
 
 (async () => {
@@ -84,7 +84,7 @@ process.on('unhandledRejection', err => {
     await new Promise((resolve, reject) =>
         require('http')
             .Server(app)
-            .listen(+process.env.PORT || 3000, resolve)
+            .listen(Number(process.env.PORT) || 3000, resolve)
             .on('error', reject)
     );
     winston.info('server is running...');
