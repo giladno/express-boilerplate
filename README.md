@@ -7,7 +7,6 @@ This repo is a work in progress — Feel free to open issues and PRs.
 # Requirements
 
 - Node.js >= 10.8.0
-- PostgreSQL/MySQL (to use with Sequelize)
 
 # Getting started
 
@@ -22,8 +21,9 @@ To get the Node server running locally:
 - NODE_ENV - defines the node environment, the default is `development`
 - LOG_LEVEL - defines `winston`'s logging level (see [Logging Levels](https://github.com/winstonjs/winston#logging-levels)); defaults to 'info'
 - COOKIE_SECRET - used by `cookie-session`, defaults to 'secret'
-- COOKIE_AGE - used by `cookie-session`, defaults to a fixed number
+- COOKIE_AGE - used by `cookie-session`, defaults to a 30 days
 - PORT - the port the app is listening to, defaults to 3000
+- DATABASE_URL - connection url, defaults to in-memory SQLite instance
 
 # Code Overview
 
