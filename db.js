@@ -7,8 +7,11 @@ const sequelize = new Sequelize(process.env.DATABASE_URL || 'sqlite://:memory:',
     logging: false,
 });
 
-module.exports = Object.entries(
+module.exports = {sequelize};
+
+for (const controller of Object.values(
     require('require-all')({dirname: path.resolve(__dirname, './models'), recursive: false})
-)
-    .map(([, controller]) => controller(sequelize))
-    .reduce((db, model) => ({...db, [model.name]: model}), {Sequelize, sequelize});
+)) {
+    let model = controller(sequelize);
+    module.exports[model.name] = model;
+}
