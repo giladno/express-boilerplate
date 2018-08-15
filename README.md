@@ -20,9 +20,9 @@ To get the Node server running locally:
 # Environment Variables
 
 -   NODE_ENV - defines the node environment, the default is `development`
--   LOG_LEVEL - defines `winston`'s logging level (see [Logging Levels](https://github.com/winstonjs/winston#logging-levels)); defaults to 'info'
--   COOKIE_SECRET - used by `cookie-session`, defaults to 'secret'
--   COOKIE_AGE - used by `cookie-session`, defaults to a 30 days
+-   LOG_LEVEL - defines [winston](https://github.com/winstonjs/winston#logging-levels)'s logging level, defaults to `info`
+-   COOKIE_SECRET - used by [cookie-session](https://github.com/expressjs/cookie-session#secret), defaults to `secret`
+-   COOKIE_AGE - used by [cookie-session](https://github.com/expressjs/cookie-session#cookie-options), defaults to a 30 days
 -   PORT - the port the app is listening to, defaults to 3000
 -   DATABASE_URL - connection url, defaults to in-memory SQLite instance
 
@@ -34,7 +34,7 @@ To get the Node server running locally:
 -   [Sequelize](http://docs.sequelizejs.com/) - a promise-based ORM for Node.js v4 and up, used to handle database migrations and queries
 -   [Morgan](https://github.com/expressjs/morgan) - an HTTP request logger
 -   [longjohn](https://github.com/mattinsler/longjohn) - A module that helps display more info regarding stack traces
--   [require-all](https://github.com/felixge/node-require-all) - An easy way to require all files within a directory.
+-   [require-all](https://github.com/felixge/node-require-all) - An easy way to require all files within a directory
 -   [winston](https://github.com/winstonjs/winston) - Like console.log(), but better :)
 -   [cookie-session](https://github.com/expressjs/cookie-session) - Simple cookie-based session middleware, used to save and sync user session between the client and server
 -   [ejs](http://ejs.co/) - A templating engine for JavaScript
