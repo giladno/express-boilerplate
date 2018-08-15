@@ -75,6 +75,12 @@ app.use((err, req, res, next) => {
     next;
 });
 
+
+process.on('unhandledRejection', err => {
+  winston.error(err.message, {err}); 
+  throw err; 
+});
+
 (async () => {
     await sequelize.sync();
     await new Promise((resolve, reject) =>
@@ -84,4 +90,4 @@ app.use((err, req, res, next) => {
             .on('error', reject)
     );
     winston.info('server is running...');
-})().catch(err => winston.error(err.message, {err}));
+})();
