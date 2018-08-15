@@ -1,5 +1,4 @@
 'use strict';
-const _ = require('lodash');
 const path = require('path');
 const express = require('express');
 const winston = require('winston');
@@ -54,13 +53,12 @@ app.use(async (req, res, next) => {
     }
 });
 
-_.forIn(
-    require('require-all')({dirname: path.resolve(__dirname, './controllers'), recursive: false}),
-    (controller, name) => {
-        winston.info(`Registering controller /${name}`);
-        app.use(`/${name}`, controller);
-    }
-);
+for (const [name, controller] of Object.entries(
+    require('require-all')({dirname: path.resolve(__dirname, './controllers'), recursive: false})
+)) {
+    winston.info(`Registering controller /${name}`);
+    app.use(`/${name}`, controller);
+}
 
 app.get('/', (req, res) => {
     if (!req.user) return res.redirect('/login');
