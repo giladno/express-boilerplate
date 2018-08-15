@@ -43,7 +43,9 @@ To get the Node server running locally:
 
 -   `server.js` - The entry point to our application. This file requires some of the above dependencies, starts logging requests, sets up the view engine, handles the creation and handling of cookies, sets up routing and eventually listens for a connection from the client.
 
--   `db.js` - We use this file to connect to our database using Sequelize, set up our models, hooks, and authentication mechanism
+-   `db.js` - We use this file to connect to our database using Sequelize and load our models
+
+-   `models/` - This folder contains the database models
 
 -   `controllers/` - This folder contains the controllers used in our routes. These contain the logic of what happens when a user requests a certain page or endpoint.
 
@@ -54,7 +56,7 @@ To get the Node server running locally:
 -   Email verification
 -   Password reset
 -   Adding Webpack to demonstrate bundle serving to the client
--   Improve the project file structure, maybe separate to `config`, `models` etc.
+-   Improve the project file structure, maybe separate to `config` etc.
 
 ## Contributors
 
