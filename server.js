@@ -16,6 +16,7 @@ winston.add(
 const app = express();
 
 app.set('view engine', 'ejs');
+app.set('views', path.resolve(__dirname, './views'));
 app.locals.__DEV__ = __DEV__;
 
 app.use(
