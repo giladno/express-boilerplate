@@ -10,7 +10,7 @@ app.post('/', async (req, res, next) => {
     try {
         assert(typeof req.body.email == 'string');
         assert(typeof req.body.password == 'string');
-        let user = req.body.email && (await User.findOne({email: req.body.email}));
+        let user = req.body.email && (await User.findOne({where: {email: req.body.email}}));
         if (!user || !(await user.authenticate(req.body.password)))
             return res.render('login', {error: 'invalid email/password'});
         req.session = {id: user.id, timestamp: Date.now()};
