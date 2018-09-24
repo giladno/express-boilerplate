@@ -17,6 +17,7 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, './views'));
+app.set('x-powered-by', false);
 app.locals.__DEV__ = __DEV__;
 
 app.use(
