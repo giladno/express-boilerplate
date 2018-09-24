@@ -1,12 +1,12 @@
 'use strict';
 const assert = require('assert');
-const {User} = require('../db');
 
 const app = (module.exports = require('express').Router());
 
 app.get('/', (req, res) => res.render('login'));
 
 app.post('/', async (req, res, next) => {
+    const {User} = req.app.get('db');
     try {
         assert(typeof req.body.email == 'string');
         assert(typeof req.body.password == 'string');
