@@ -2,7 +2,7 @@
 const assert = require('assert');
 const {User} = require('../db');
 
-const app = (module.exports = require('express')());
+const app = (module.exports = require('express').Router());
 
 app.get('/', (req, res) => res.render('login'));
 

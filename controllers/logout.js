@@ -1,6 +1,6 @@
 'use strict';
 
-const app = (module.exports = require('express')());
+const app = (module.exports = require('express').Router());
 
 app.get('/', async (req, res, next) => {
     try {
