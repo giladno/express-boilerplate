@@ -22,7 +22,7 @@
     "homepage": "https://github.com/giladno/express-boilerplate#readme",
     "devDependencies": {
         "babel-eslint": "^10.0.1",
-        "eslint": "^5.15.2",
+        "eslint": "^5.15.3",
         "eslint-plugin-node": "^8.0.1"
     },
     "dependencies": {
@@ -32,7 +32,7 @@
         "longjohn": "^0.2.12",
         "morgan": "^1.9.1",
         "require-all": "^3.0.0",
-        "sequelize": "^5.1.0",
+        "sequelize": "^5.2.6",
         "sqlite3": "^4.0.6",
         "winston": "^3.2.1"
     }
