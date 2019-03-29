@@ -10,9 +10,9 @@ const randomBytes = util.promisify(crypto.randomBytes);
 const scrypt = util.promisify(crypto.scrypt);
 
 async function scryptHash(password) {
-    let salt = await randomBytes(SCRYPT_SALT_SIZE);
-    let hash = await scrypt(password, salt, SCRYPT_KEYLEN);
-    let res = Buffer.alloc(hash.length + salt.length + 4);
+    const salt = await randomBytes(SCRYPT_SALT_SIZE);
+    const hash = await scrypt(password, salt, SCRYPT_KEYLEN);
+    const res = Buffer.alloc(hash.length + salt.length + 4);
     res.writeUInt32BE(salt.length, 0, true);
     salt.copy(res, 4);
     hash.copy(res, salt.length + 4);
@@ -20,14 +20,14 @@ async function scryptHash(password) {
 }
 
 async function scryptVerify(password, passwordHash) {
-    let buf = Buffer.from(passwordHash, 'base64');
-    let saltLength = buf.readUInt32BE(0);
-    let hash = await scrypt(password, buf.slice(4, saltLength + 4), buf.length - saltLength - 4);
+    const buf = Buffer.from(passwordHash, 'base64');
+    const saltLength = buf.readUInt32BE(0);
+    const hash = await scrypt(password, buf.slice(4, saltLength + 4), buf.length - saltLength - 4);
     return !hash.compare(buf, saltLength + 4);
 }
 
 module.exports = sequelize => {
-    let model = sequelize.define(
+    const model = sequelize.define(
         'User',
         {
             email: {type: Sequelize.STRING, unique: true},

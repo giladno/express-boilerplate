@@ -58,7 +58,7 @@ if (__DEV__) {
 app.use(async (req, res, next) => {
     const {User} = req.app.get('db');
     try {
-        let user = req.session.id && (await User.findOne({where: {id: req.session.id || 0}}));
+        const user = req.session.id && (await User.findOne({where: {id: req.session.id || 0}}));
         if (user && (Number(req.session.timestamp) || 0) > (Number(user.logout) || 0))
             res.locals.user = req.user = user;
     } catch (err) {
