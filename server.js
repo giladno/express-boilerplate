@@ -3,7 +3,9 @@ const path = require('path');
 const express = require('express');
 const winston = require('winston');
 const require_all = require('require-all');
-const Sequelize = require('sequelize');
+const sequelize = require('./models');
+
+const {User} = sequelize.models;
 
 const __DEV__ = process.env.NODE_ENV == 'development';
 
@@ -13,15 +15,6 @@ winston.add(
         format: winston.format.combine(winston.format.colorize({level: true}), winston.format.simple()),
     })
 );
-
-const sequelize = new Sequelize(process.env.DATABASE_URL || 'sqlite://:memory:', {
-    operatorsAliases: false,
-    logging: false,
-});
-for (const controller of Object.values(require_all({dirname: path.resolve(__dirname, './models')}))) {
-    const {name} = controller(sequelize);
-    winston.info(`Loading model ${name}`);
-}
 
 const app = express();
 
@@ -56,7 +49,11 @@ if (__DEV__) {
 }
 
 app.use(async (req, res, next) => {
-    const {User} = req.app.get('db');
+    res.locals.url = req.url;
+    next();
+});
+
+app.use(async (req, res, next) => {
     try {
         const user = req.session.id && (await User.findOne({where: {id: req.session.id || 0}}));
         if (user && (Number(req.session.timestamp) || 0) > (Number(user.logout) || 0))
@@ -70,7 +67,17 @@ app.use(async (req, res, next) => {
 
 for (const [name, controller] of Object.entries(require_all({dirname: path.resolve(__dirname, './controllers')}))) {
     winston.info(`Registering controller /${name}`);
-    app.use(`/${name}`, controller);
+    const router = express.Router();
+    const {guest} = controller(router, sequelize.models) || {};
+    app.use(
+        `/${name}`,
+        (req, res, next) => {
+            if (guest) return next();
+            if (!req.user) return res.render('401');
+            next();
+        },
+        router
+    );
 }
 
 app.get('/', (req, res) => {
@@ -78,11 +85,11 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 
-app.use((req, res) => res.render('404', {url: req.url}));
+app.use((req, res) => res.render('404'));
 
 app.use((err, req, res, next) => {
     winston.error(err.message, {url: req.url, err});
-    res.render('500', {url: req.url, err});
+    res.render('500', {err});
     next;
 });
 

@@ -1,7 +1,6 @@
 'use strict';
 const crypto = require('crypto');
 const util = require('util');
-const Sequelize = require('sequelize');
 
 const SCRYPT_SALT_SIZE = 16;
 const SCRYPT_KEYLEN = 64;
@@ -26,7 +25,7 @@ async function scryptVerify(password, passwordHash) {
     return !hash.compare(buf, saltLength + 4);
 }
 
-module.exports = sequelize => {
+module.exports = (sequelize, Sequelize) => {
     const model = sequelize.define(
         'User',
         {
@@ -49,5 +48,4 @@ module.exports = sequelize => {
     model.prototype.authenticate = async function(password) {
         return this.password_digest && (await scryptVerify(password, this.password_digest));
     };
-    return model;
 };
